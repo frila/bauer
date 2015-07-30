@@ -13,8 +13,17 @@ namespace bauer {
     bauer_ip ip;
     bauer_port port;
   public:
+    bauer_node() {
+      socket = -1;
+    }
+
     bauer_node(bsocket_t _socket, bauer_ip _ip, bauer_port _port) {
       this->socket = _socket;
+      this->ip = _ip;
+      this->port = _port;
+    }
+
+    bauer_node(bauer_ip _ip, bauer_port _port) : bauer_node() {
       this->ip = _ip;
       this->port = _port;
     }
