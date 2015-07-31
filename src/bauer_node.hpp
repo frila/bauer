@@ -18,14 +18,15 @@ namespace bauer {
     }
 
     bauer_node(bsocket_t _socket, bauer_ip _ip, bauer_port _port) {
-      this->socket = _socket;
-      this->ip = _ip;
-      this->port = _port;
+      socket = _socket;
+      ip = _ip;
+      port = _port;
     }
 
-    bauer_node(bauer_ip _ip, bauer_port _port) : bauer_node() {
-      this->ip = _ip;
-      this->port = _port;
+    bauer_node(bauer_ip _ip, bauer_port _port) {
+      socket = -1;
+      ip = _ip;
+      port = _port;
     }
 
     bsocket_t get_socket() {
