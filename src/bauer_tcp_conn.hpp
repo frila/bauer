@@ -38,6 +38,10 @@ namespace bauer {
     	tgt = _tgt;
     }
 
+    bauer_node& get_target(){
+    	return tgt;
+    }
+
     bauer_tcp_conn();
     ~bauer_tcp_conn();
     

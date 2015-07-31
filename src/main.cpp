@@ -2,6 +2,7 @@
 #include "bauer_tcp.hpp"
 #include "bauer_tcp_svr.hpp"
 #include "bauer_tcp_conn.hpp"
+#include "bauer_tcp_clnt.hpp"
 
 
 int main(int argc, char const *argv[])

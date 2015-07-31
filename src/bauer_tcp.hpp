@@ -8,7 +8,12 @@ namespace bauer {
 
 bsocket_t tcp_socket() {
   using namespace sckt;
-  return socket(AF_INET,SOCK_STREAM,0);
+
+  bsocket_t _socket = 0;
+  if ( (_socket = socket(_AF_INET, _SOCK_STREAM,_IPPROTO_TCP)) < 0) {
+      throw new int; //TODO: Can't to create the socket
+  }
+  return _socket;
 }
 
 }
