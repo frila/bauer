@@ -1,6 +1,7 @@
 #include "bauer_node.hpp"
 #include "bauer_tcp.hpp"
 #include "bauer_tcp_svr.hpp"
+#include "bauer_tcp_conn.hpp"
 
 
 int main(int argc, char const *argv[])
