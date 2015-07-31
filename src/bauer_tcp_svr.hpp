@@ -9,16 +9,20 @@
 #include "bauer_tcp.hpp"
 
 namespace bauer {
+  template<class Tasker>
   class bauer_tcp_svr
   {
   private:
     bauer_node local;
+    Tasker task_mng;
   public:
 
     bauer_tcp_svr(bauer_node _local) {
       /* Create a local communication endpoint */
       if ( _local.get_socket() < 0 ) _local.set_socket(tcp_socket());
+      Tasker _task_mng(); 
       local = _local;
+      task_mng = _task_mng;
 
       setup_svr();
     }
@@ -77,8 +81,7 @@ namespace bauer {
       while (true) {
         //aceitando conexão de um nó remoto
         bauer_node remote = accept();
-        //TODO: Implementar o Task Manager
-        
+        task_mng.dispatcher_exec(remote);
       }
     }
 
