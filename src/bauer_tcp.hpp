@@ -7,7 +7,6 @@
 namespace bauer {
 
 bsocket_t tcp_socket() {
-  
   using namespace sckt;
   return socket(AF_INET,SOCK_STREAM,0);
 }

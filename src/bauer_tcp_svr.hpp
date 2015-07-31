@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string.h>
 #include "socket_facade.h"
+#include "bauer_node.hpp"
+#include "bauer_types.hpp"
 #include "bauer_tcp.hpp"
 
 namespace bauer {
@@ -12,15 +14,13 @@ namespace bauer {
   private:
     bauer_node local;
   public:
-    void start() {
-
-    }
 
     bauer_tcp_svr(bauer_node _local) {
       /* Create a local communication endpoint */
       if ( _local.get_socket() < 0 ) _local.set_socket(tcp_socket());
       local = _local;
 
+      setup_svr();
     }
 
     ~bauer_tcp_svr();
@@ -51,7 +51,36 @@ namespace bauer {
 
     }
 
+    bauer_node accept(){
+      bauer_node client_node;
+      sckt::sockaddr_in cliAddr; /* client address */
+      unsigned int cliLen; /* length of client address data structure */
 
+      /* Set the size of the in-out parameter */
+      cliLen = sizeof(cliAddr);
+
+      /* Wait for a client to connect */
+      bsocket_t accept_d = sckt::accept(local.get_socket(), (sckt::sockaddr*) &cliAddr, &cliLen);
+
+      if ( accept_d < 0) {
+          throw new int; //TODO "Accept failed
+      } else {
+        client_node.set_socket(accept_d);
+      }
+
+      client_node.set_ip(sckt::inet_ntoa(cliAddr.sin_addr));
+      client_node.set_port(cliAddr.sin_port);
+      return client_node;
+    }
+
+    void start() {
+      while (true) {
+        //aceitando conexão de um nó remoto
+        bauer_node remote = accept();
+        //TODO: Implementar o Task Manager
+        
+      }
+    }
 
   };
 }
