@@ -45,9 +45,9 @@ namespace bauer {
 
       /* Mark the socket so it will listen for incoming connections */
       // TODO VER MAXPENDING no codigo da Silvana
-      //if (sckt::listen(local.get_socket(), 3) < 0){
-      //  throw new int; //TODO: Listen faileds
-      //}
+      if (sckt::listen(local.get_socket(), 3) < 0){
+        throw new int; //TODO: Listen faileds
+      }
 
     }
 
