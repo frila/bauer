@@ -3,11 +3,11 @@
 #include "bauer_tcp_svr.hpp"
 #include "bauer_tcp_conn.hpp"
 #include "bauer_tcp_clnt.hpp"
+#include "bauer_task_serial.hpp"
 
 
 int main(int argc, char const *argv[])
 {
-  std::cout << bauer::tcp_socket() << std::endl;
-  std::cout << "hello, bauer" << std::endl;
+
   return 0;
 }
