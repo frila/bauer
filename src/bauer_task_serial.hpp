@@ -8,10 +8,10 @@ namespace bauer {
 class bauer_task_serial
 {
 private:
-  void (*exec)(bauer_tcp_conn);
+  bauer_task_function exec;
 public:
   bauer_task_serial() {}
-  bauer_task_serial( void (*_exec)(bauer_tcp_conn)){
+  bauer_task_serial( bauer_task_function _exec){
     exec = _exec;
   }
   ~bauer_task_serial() {}

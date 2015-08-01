@@ -20,7 +20,7 @@ namespace bauer {
     ~bauer_tcp_svr() {}
     bauer_tcp_svr() {}
 
-    bauer_tcp_svr(bauer_node _local, void (*_exec)(bauer_tcp_conn)) {
+    bauer_tcp_svr(bauer_node _local, bauer_task_function _exec) {
 
       if ( _local.get_socket() < 0 ) _local.set_socket(tcp_socket());
       Tasker _task_mng(_exec); 
