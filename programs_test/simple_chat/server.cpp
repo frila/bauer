@@ -18,7 +18,7 @@ void exec(bauer_tcp_conn remote){
   }
 }
 
-//g++ -o bin/server src/server.cpp -pthread -Wall
+//g++ -o bin/server programs_test/simple_chat/server.cpp -pthread -Wall
 int main(int argc, char const *argv[])
 {
   bauer_node server_node(tcp_socket(), "127.0.0.1", 9997);

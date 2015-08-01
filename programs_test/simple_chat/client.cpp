@@ -5,7 +5,7 @@
 
 using namespace bauer;
 
-//g++ -o bin/client src/client.cpp -pthread -Wall
+//g++ -o bin/client programs_test/simple_chat/client.cpp -pthread -Wall
 int main(int argc, char const *argv[])
 {
   bauer_node server_node(tcp_socket(), "127.0.0.1", 9997);
