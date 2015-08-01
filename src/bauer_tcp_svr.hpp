@@ -17,10 +17,10 @@ namespace bauer {
     Tasker task_mng;
   public:
 
-    bauer_tcp_svr(bauer_node _local) {
-      /* Create a local communication endpoint */
+    bauer_tcp_svr(bauer_node _local, void (*_exec)(bauer_node)) {
+
       if ( _local.get_socket() < 0 ) _local.set_socket(tcp_socket());
-      Tasker _task_mng(); 
+      Tasker _task_mng(_exec); 
       local = _local;
       task_mng = _task_mng;
 
@@ -34,20 +34,18 @@ namespace bauer {
     }
 
     void setup_svr(){
-      sckt::sockaddr_in addr; /* local address */
+      sckt::sockaddr_in addr;
 
-      /* Setup the local address */
-      memset((void *) &addr, 0, sizeof(addr)); /* zero out structure */
-      addr.sin_family = sckt::_AF_INET; /* Internet address family */
-      addr.sin_addr.s_addr = sckt::htonl(sckt::_INADDR_ANY); /* any incoming interface */
-      addr.sin_port = sckt::htons(local.get_port()); /* local port */
+      
+      memset((void *) &addr, 0, sizeof(addr));
+      addr.sin_family = sckt::_AF_INET;
+      addr.sin_addr.s_addr = sckt::htonl(sckt::_INADDR_ANY); 
+      addr.sin_port = sckt::htons(local.get_port());
 
-      /* Bind to the local address */
       if (sckt::bind(local.get_socket(), (sckt::sockaddr *) &addr, sizeof(addr)) < 0){
         throw new int; //TODO: Bind failed
       }
 
-      /* Mark the socket so it will listen for incoming connections */
       // TODO VER MAXPENDING no codigo da Silvana
       if (sckt::listen(local.get_socket(), 3) < 0){
         throw new int; //TODO: Listen faileds
@@ -57,13 +55,11 @@ namespace bauer {
 
     bauer_node accept(){
       bauer_node client_node;
-      sckt::sockaddr_in cliAddr; /* client address */
-      unsigned int cliLen; /* length of client address data structure */
+      sckt::sockaddr_in cliAddr;
+      unsigned int cliLen;
 
-      /* Set the size of the in-out parameter */
       cliLen = sizeof(cliAddr);
 
-      /* Wait for a client to connect */
       bsocket_t accept_d = sckt::accept(local.get_socket(), (sckt::sockaddr*) &cliAddr, &cliLen);
 
       if ( accept_d < 0) {
@@ -79,7 +75,6 @@ namespace bauer {
 
     void start() {
       while (true) {
-        //aceitando conexão de um nó remoto
         bauer_node remote = accept();
         task_mng.dispatcher_exec(remote);
       }
