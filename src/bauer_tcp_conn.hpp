@@ -42,8 +42,11 @@ namespace bauer {
     	return tgt;
     }
 
-    bauer_tcp_conn();
-    ~bauer_tcp_conn();
+    bauer_tcp_conn() {}
+    bauer_tcp_conn( bauer_node _tgt) {
+      tgt = _tgt;
+    }
+    ~bauer_tcp_conn() {}
     
   };
 }

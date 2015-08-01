@@ -4,6 +4,7 @@
 #include "socket_facade.h"
 #include "bauer_tcp.hpp"
 #include "bauer_node.hpp"
+#include "bauer_tcp_conn.hpp"
 
 namespace bauer {
 
@@ -12,8 +13,8 @@ class bauer_tcp_clnt
   private:
     bauer_tcp_conn conn;
   public:
-    bauer_tcp_clnt();
-    ~bauer_tcp_clnt();
+    bauer_tcp_clnt() {}
+    ~bauer_tcp_clnt() {}
 
     void connect(bauer_node node){
       sckt::sockaddr_in server;
@@ -36,7 +37,7 @@ class bauer_tcp_clnt
       return conn.send(data);
     }
 
-    size_t receive(std::string &data)
+    size_t recv(std::string &data)
     {
       return conn.recv(data);
     }
