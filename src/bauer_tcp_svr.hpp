@@ -20,7 +20,7 @@ namespace bauer {
     ~bauer_tcp_svr() {}
     bauer_tcp_svr() {}
 
-    bauer_tcp_svr(bauer_node _local, bauer_task_function _exec) {
+    bauer_tcp_svr(bauer_node _local, void (*_exec)(bauer_tcp_conn)) {
 
       if ( _local.get_socket() < 0 ) _local.set_socket(tcp_socket());
       Tasker _task_mng(_exec); 
@@ -77,13 +77,9 @@ namespace bauer {
 
     void start() {
       while (true) {
-        std::cout << "esperando conexao" << std::endl;
         bauer_node remote = accept();
-        std::cout << "accept" << std::endl;
         bauer_tcp_conn conn(remote);
-        std::cout << "criado conn object" << std::endl;
         task_mng.dispatcher_exec(remote);
-        std::cout << "executado tarefa" << std::endl;
       }
     }
 

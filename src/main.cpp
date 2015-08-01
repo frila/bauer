@@ -4,6 +4,7 @@
 #include "bauer_tcp_conn.hpp"
 #include "bauer_tcp_clnt.hpp"
 #include "bauer_task_serial.hpp"
+#include "bauer_task_thread.hpp"
 
 
 int main(int argc, char const *argv[])

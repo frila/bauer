@@ -5,10 +5,10 @@
 
 using namespace bauer;
 
-//g++ -o bin/client programs_test/simple_chat/client.cpp -pthread -Wall
+//g++ -std=c++11  -o bin/client programs_test/simple_chat/client.cpp -pthread -Wall -I src
 int main(int argc, char const *argv[])
 {
-  bauer_node server_node(tcp_socket(), "127.0.0.1", 9997);
+  bauer_node server_node(tcp_socket(), "127.0.0.1", 9999);
   bauer_tcp_clnt client;
 
   client.connect(server_node);

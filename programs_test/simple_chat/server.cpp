@@ -3,7 +3,7 @@
 #include "bauer_tcp_svr.hpp"
 #include "bauer_node.hpp"
 #include "bauer_tcp_conn.hpp"
-#include "bauer_task_serial.hpp"
+#include "bauer_task_thread.hpp"
 
 using namespace bauer;
 
@@ -13,16 +13,16 @@ void exec(bauer_tcp_conn remote){
   while(true){
     remote.recv(a);
     std::cout << std::string("[Server] - ") << a << std::endl;
-    std::cin >> a; 
+    a = "Recebido"; 
     remote.send(a);
   }
 }
 
-//g++ -o bin/server programs_test/simple_chat/server.cpp -pthread -Wall
+//g++ -std=c++11 -o bin/server programs_test/simple_chat/server.cpp -pthread -Wall -I src
 int main(int argc, char const *argv[])
 {
-  bauer_node server_node(tcp_socket(), "127.0.0.1", 9997);
-  bauer_tcp_svr<bauer_task_serial> server(server_node, exec);
+  bauer_node server_node(tcp_socket(), "127.0.0.1", 9999);
+  bauer_tcp_svr<bauer_task_thread> server(server_node, exec);
   server.start();
 
   return 0;
