@@ -1,5 +1,5 @@
-#ifndef BAUER_TASK_POOL_THREAD_HPP
-#define BAUER_TASK_POOL_THREAD_HPP
+#ifndef BAUER_TASK_THREAD_HPP
+#define BAUER_TASK_THREAD_HPP
 
 #include "bauer_types.hpp"
 #include "bauer_tcp_conn.hpp"

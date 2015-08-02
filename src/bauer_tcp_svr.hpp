@@ -15,7 +15,7 @@ namespace bauer {
   {
   private:
     bauer_node local;
-    Tasker task_mng;
+    Tasker *task_mng;
   public:
     ~bauer_tcp_svr() {}
     bauer_tcp_svr() {}
@@ -23,9 +23,8 @@ namespace bauer {
     bauer_tcp_svr(bauer_node _local, void (*_exec)(bauer_tcp_conn)) {
 
       if ( _local.get_socket() < 0 ) _local.set_socket(tcp_socket());
-      Tasker _task_mng(_exec); 
       local = _local;
-      task_mng = _task_mng;
+      task_mng = new Tasker(_exec);
 
       setup_svr();
     }
@@ -79,7 +78,7 @@ namespace bauer {
       while (true) {
         bauer_node remote = accept();
         bauer_tcp_conn conn(remote);
-        task_mng.dispatcher_exec(remote);
+        task_mng->dispatcher_exec(remote);
       }
     }
 
