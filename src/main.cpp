@@ -7,11 +7,11 @@
 #include "bauer_task_thread.hpp"
 #include "bauer_task_process.hpp"
 #include "bauer_task_pool_thread.hpp"
+#include "bauer_exception.hpp"
 
+using namespace bauer;
 
 int main(int argc, char const *argv[])
 {
-  bauer::bauer_task_pool_thread t;
-  t.setup_threads(8);
-  return 0;
+  
 }
