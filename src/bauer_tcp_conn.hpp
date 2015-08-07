@@ -13,22 +13,22 @@ namespace bauer {
     bauer_node tgt;
   public:
     
-    size_t send(std::string data) {
+    size_t send(std::string data) throw(bauer_socket_exception){
       const char* data_to_char = data.c_str();
       size_t rt;
 	    if( (rt = sckt::send(tgt.get_socket(), data_to_char, strlen(data_to_char), 0)) < 0) {
-        throw new int; //TODO: Send failed
+        throw bauer_socket_exception();
 	    }
 
 	    return rt;
     }
 
-    size_t recv(std::string &data) {
+    size_t recv(std::string &data) throw(bauer_socket_exception){
       char *buffer = new char[1024];
       size_t rt;
       memset(buffer,0,sizeof(char)*1024);
       if ( (rt = sckt::recv(tgt.get_socket(), buffer, 100, 0)) < 0 ){
-        throw new int; //TODO: Receive failed
+        throw bauer_socket_exception();
       }
       data = buffer;
       return rt;

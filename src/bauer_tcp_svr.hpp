@@ -34,7 +34,7 @@ namespace bauer {
       local.set_socket( tcp_socket() );
     }
 
-    void setup_svr(){
+    void setup_svr() throw(bauer_socket_exception){
       sckt::sockaddr_in addr;
 
       
@@ -44,12 +44,12 @@ namespace bauer {
       addr.sin_port = sckt::htons(local.get_port());
 
       if (sckt::bind(local.get_socket(), (sckt::sockaddr *) &addr, sizeof(addr)) < 0){
-        throw new int; //TODO: Bind failed
+        throw bauer_socket_exception();
       }
 
       // TODO VER MAXPENDING no codigo da Silvana
       if (sckt::listen(local.get_socket(), 3) < 0){
-        throw new int; //TODO: Listen faileds
+        throw bauer_socket_exception();
       }
 
     }
@@ -64,7 +64,7 @@ namespace bauer {
       bsocket_t accept_d = sckt::accept(local.get_socket(), (sckt::sockaddr*) &cliAddr, &cliLen);
 
       if ( accept_d < 0) {
-          throw new int; //TODO "Accept failed
+        throw bauer_socket_exception();
       } else {
         client_node.set_socket(accept_d);
       }

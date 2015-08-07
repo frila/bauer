@@ -13,5 +13,5 @@ using namespace bauer;
 
 int main(int argc, char const *argv[])
 {
-  
+  throw bauer_socket_exception();
 }

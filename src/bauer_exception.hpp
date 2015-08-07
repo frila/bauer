@@ -2,15 +2,19 @@
 #define BAUER_EXCEPTION
 
 #include <exception>
+#include <errno.h>
+#include <string.h>
 
 namespace bauer
 {
   class bauer_exception : public std::exception
   {
-  private:
+  protected:
     bauer_exception *inner;
     std::string message;
   public:
+
+    bauer_exception() : exception() {}
 
     bauer_exception(char *_message, bauer_exception *_inner) : exception() 
     {
@@ -34,6 +38,20 @@ namespace bauer
       return message.c_str();
     }
   };
+
+  class bauer_socket_exception : public bauer_exception
+  {
+  protected:
+    int code;
+  public:
+    bauer_socket_exception() : bauer_exception()
+    {
+      code = errno;
+      message = std::string(strerror(errno));
+    }
+    
+  };
+
 }
 
 #endif

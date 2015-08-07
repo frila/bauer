@@ -16,7 +16,7 @@ class bauer_tcp_clnt
     bauer_tcp_clnt() {}
     ~bauer_tcp_clnt() {}
 
-    void connect(bauer_node node){
+    void connect(bauer_node node) throw(bauer_socket_exception){
       sckt::sockaddr_in server;
 
       conn.set_target(node);
@@ -28,7 +28,7 @@ class bauer_tcp_clnt
 
       if (sckt::connect((bsocket_t) conn.get_target().get_socket() , (sckt::sockaddr *)&server , (sckt::socklen_t) sizeof(server)) < 0)
       {
-          throw new int; //TOOD Can't to connect with "+node->ip
+        throw bauer_socket_exception();
       }
     }
 
