@@ -1,0 +1,5 @@
+image: bernardolins/gtest
+git:
+  path: github.com/frila/bauer
+script:
+  - echo "hello"
