@@ -1,9 +1,9 @@
 #ifndef BAUER_TASK_THREAD_HPP
 #define BAUER_TASK_THREAD_HPP
 
+#include <thread>
 #include "bauer_types.hpp"
 #include "bauer_tcp_conn.hpp"
-#include <thread>
 
 namespace bauer{
 

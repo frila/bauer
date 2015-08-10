@@ -7,12 +7,13 @@ OBJ=obj
 DEP=../src
 BIN=bin
 
-INC=-I/opt/gtest/include -I../src -Isrc -I$(DEPINC) -L$(DEPLIB)
-
 DEPINC=/usr/local/include
 DEPLIB=/usr/local/lib
+BAUERLIB=../bin
 
-FLAGS=-g -L/opt/gtest/lib -lgtest -lgtest_main -pthread
+INC=-I/opt/gtest/include -I../inc -Isrc -I$(DEPINC) -L$(DEPLIB) -L$(BAUERLIB)
+
+FLAGS=-std=c++11 -g -L/opt/gtest/lib -lgtest -lgtest_main -pthread -lbauer
 OBJS=$(OBJ)/bauer_node_test.o $(OBJ)/bauer_tcp_test.o
 
 NAME=test-all
@@ -29,10 +30,6 @@ $(OBJ)/bauer_node_test.o: $(SRC)/bauer_node_test.cpp
 
 $(OBJ)/bauer_tcp_test.o: $(SRC)/bauer_tcp_test.cpp
 	$(CC) -o $(OBJ)/bauer_tcp_test.o -c $(SRC)/bauer_tcp_test.cpp $(INC) $(FLAGS)
-
-# #### building dependencies
-# $(OBJ)/bauer_node.o: $(DEP)/bauer_node.cpp
-# 	$(CC) -o $(OBJ)/bauer_node.o -c $(DEP)/bauer_node.cpp $(INC) $(FLAGS)
 
 clean:
 	rm -rf $(OBJ) $(BIN)/$(NAME)

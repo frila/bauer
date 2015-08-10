@@ -1,10 +1,10 @@
 #ifndef BAUER_TASK_POOL_THREAD_HPP
 #define BAUER_TASK_POOL_THREAD_HPP
 
-#include <list>
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <list>
 #include "bauer_tcp_conn.hpp"
 
 namespace bauer{

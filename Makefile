@@ -1,9 +1,5 @@
-#all:
-#	g++ -std=c++11 -o bin/bauer src/main.cpp -pthread -Wall
-#
-#clean:
-#	rm -rf bin/
-#	mkdir bin
+#all:   g++ -std=c++11 -o bin/bauer src/main.cpp -pthread -Wall  clean:   rm
+#-rf bin/   mkdir bin
 
 NAME=bauer
 CC=g++
@@ -24,12 +20,17 @@ INC=-I/opt/gtest/include -Iinc -Isrc -I$(DEPINC) -L$(DEPLIB)
 OBJS=$(OBJ)/bauer_node.o $(OBJ)/bauer_exception.o $(OBJ)/bauer_task_pool_thread.o $(OBJ)/bauer_task_process.o $(OBJ)/bauer_task_serial.o $(OBJ)/bauer_task_thread.o $(OBJ)/bauer_tcp_conn.o $(OBJ)/bauer_tcp.o $(OBJ)/bauer_tcp_clnt.o $(OBJ)/bauer_tcp_svr.o
 
 all: $(OBJS)
-	$(CC) -o $(BIN)/$(NAME).so $(OBJS) $(FLAGS) -shared -pthread
+	$(CC) -o $(BIN)/lib$(NAME).so $(OBJS) $(FLAGS) -shared -pthread
+
+# setar  a varial LD_LIBRARY_PATH para apontar par ao /opt/bauer/lib
+deploy: all
+	mkdir /opt/bauer
+	mkdir /opt/bauer/lib
+	cp $(BIN)/lib$(NAME).so /opt/bauer/lib
 
 clean:
-	rm -rf $(OBJ) $(BIN)/$(NAME)
+	rm -rf $(OBJ) $(BIN)/*
 	mkdir $(OBJ) 
-
 
 ###### building dependencies
 $(OBJ)/bauer_node.o: $(SRC)/bauer_node.cpp

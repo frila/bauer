@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
-#include "bauer_node.hpp"
-#include "bauer_tcp.hpp"
+#include "bauer.h"
 
 using namespace bauer;
 
