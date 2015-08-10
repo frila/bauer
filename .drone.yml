@@ -2,7 +2,8 @@ image: bernardolins/gtest
 git:
   path: github.com/frila/bauer
 script:
-  - make
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/bauer/lib
+  - make deploy
   - cd test
   - make clean
   - make test-all
