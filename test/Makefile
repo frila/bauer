@@ -13,7 +13,7 @@ DEPINC=/usr/local/include
 DEPLIB=/usr/local/lib
 
 FLAGS=-g -L/opt/gtest/lib -lgtest -lgtest_main -pthread
-OBJS=$(OBJ)/bauer_node_test.o
+OBJS=$(OBJ)/bauer_node_test.o $(OBJ)/bauer_tcp_test.o
 
 NAME=test-all
 
@@ -26,6 +26,9 @@ $(OBJ)/test_main.o:
 
 $(OBJ)/bauer_node_test.o: $(SRC)/bauer_node_test.cpp
 	$(CC) -o $(OBJ)/bauer_node_test.o -c $(SRC)/bauer_node_test.cpp $(INC) $(FLAGS)
+
+$(OBJ)/bauer_tcp_test.o: $(SRC)/bauer_tcp_test.cpp
+	$(CC) -o $(OBJ)/bauer_tcp_test.o -c $(SRC)/bauer_tcp_test.cpp $(INC) $(FLAGS)
 
 # #### building dependencies
 # $(OBJ)/bauer_node.o: $(DEP)/bauer_node.cpp

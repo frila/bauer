@@ -12,15 +12,11 @@ namespace bauer{
     private:
       void (*exec)(bauer_tcp_conn);
     public:
-      bauer_task_thread() {}
-      bauer_task_thread( void (*_exec)(bauer_tcp_conn)){
-        exec = _exec;
-      }
-      ~bauer_task_thread() {}
+      bauer_task_thread();
+      bauer_task_thread( void (*_exec)(bauer_tcp_conn));
+      ~bauer_task_thread();
 
-      void dispatcher_exec( bauer_tcp_conn remote){
-        new std::thread(exec, remote);
-      }
+      void dispatcher_exec( bauer_tcp_conn remote);
   };
 }
 
