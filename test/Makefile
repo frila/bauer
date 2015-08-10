@@ -31,6 +31,6 @@ $(OBJ)/bauer_node_test.o: $(SRC)/bauer_node_test.cpp
 # $(OBJ)/bauer_node.o: $(DEP)/bauer_node.cpp
 # 	$(CC) -o $(OBJ)/bauer_node.o -c $(DEP)/bauer_node.cpp $(INC) $(FLAGS)
 
-clear:
+clean:
 	rm -rf $(OBJ) $(BIN)/$(NAME)
 	mkdir $(OBJ) 
