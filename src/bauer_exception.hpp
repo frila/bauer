@@ -15,6 +15,7 @@ namespace bauer
   public:
 
     bauer_exception() : exception() {}
+    virtual ~bauer_exception() _GLIBCXX_USE_NOEXCEPT {}  // nao me pergunte pq essa porra na frente do destrutor
 
     bauer_exception(char *_message, bauer_exception *_inner) : exception() 
     {

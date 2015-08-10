@@ -2,4 +2,8 @@ image: bernardolins/gtest
 git:
   path: github.com/frila/bauer
 script:
-  - ls
+  - make
+  - cd test
+  - make clean
+  - make test-all
+  - bin/test-all
