@@ -20,12 +20,14 @@ INC=-I/opt/gtest/include -Iinc -Isrc -I$(DEPINC) -L$(DEPLIB)
 OBJS=$(OBJ)/bauer_node.o $(OBJ)/bauer_exception.o $(OBJ)/bauer_task_pool_thread.o $(OBJ)/bauer_task_process.o $(OBJ)/bauer_task_serial.o $(OBJ)/bauer_task_thread.o $(OBJ)/bauer_tcp_conn.o $(OBJ)/bauer_tcp.o $(OBJ)/bauer_tcp_clnt.o $(OBJ)/bauer_tcp_svr.o
 
 all: $(OBJS)
+	mkdir -p bin
 	$(CC) -o $(BIN)/lib$(NAME).so $(OBJS) $(FLAGS) -shared -pthread
 
-# setar  a varial LD_LIBRARY_PATH para apontar par ao /opt/bauer/lib
+# setar  a variavel LD_LIBRARY_PATH para apontar par ao /opt/bauer/lib
 deploy: all
-	mkdir /opt/bauer
-	mkdir /opt/bauer/lib
+	mkdir -p obj
+	mkdir -p /opt/bauer
+	mkdir -p /opt/bauer/lib
 	cp $(BIN)/lib$(NAME).so /opt/bauer/lib
 
 clean:
