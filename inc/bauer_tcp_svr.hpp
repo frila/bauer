@@ -7,20 +7,16 @@
 #include "bauer_node.hpp"
 #include "bauer_types.hpp"
 #include "bauer_tcp.hpp"
-#include "bauer_tcp_conn.hpp"
+#include "bauer_task_mngr.hpp"
 
-namespace bauer {
-  template<class Tasker>
+namespace bauer {  
   class bauer_tcp_svr
   {
   private:
-    bauer_node local;
-    Tasker *task_mng;
+    bauer_node &local;
+    bauer_task_mngr &task_mng;
   public:
-    ~bauer_tcp_svr();
-    bauer_tcp_svr();
-
-    bauer_tcp_svr(bauer_node _local, void (*_exec)(bauer_tcp_conn));
+    bauer_tcp_svr(bauer_task_mngr &task_mng,bauer_node &_local);
 
     void force();
     void setup_svr() throw(bauer_socket_exception);

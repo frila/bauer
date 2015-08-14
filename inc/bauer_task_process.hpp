@@ -5,18 +5,14 @@
 #include <unistd.h>
 #include "bauer_types.hpp"
 #include "bauer_tcp_conn.hpp"
+#include "bauer_task_mngr.hpp"
 
 namespace bauer{
 
-  class bauer_task_process
+  class bauer_task_process : public bauer_task_mngr
   {
-    private:
-      void (*exec)(bauer_tcp_conn);
     public:
-      bauer_task_process();
       bauer_task_process( void (*_exec)(bauer_tcp_conn));
-      ~bauer_task_process();
-
       void dispatcher_exec( bauer_tcp_conn remote);
   };
 }

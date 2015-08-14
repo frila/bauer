@@ -2,16 +2,13 @@
 
 namespace bauer{
 
-  bauer_task_pool_thread::bauer_task_pool_thread() {
+  bauer_task_pool_thread::bauer_task_pool_thread() : bauer_task_mngr() {
     setup_threads(8);
   }
 
-  bauer_task_pool_thread::bauer_task_pool_thread( void (*_exec)(bauer_tcp_conn)){
-    exec = _exec;
+  bauer_task_pool_thread::bauer_task_pool_thread( void (*_exec)(bauer_tcp_conn)) : bauer_task_mngr(_exec){
     setup_threads(8);
   }
-
-  bauer_task_pool_thread::~bauer_task_pool_thread() {}
 
   void bauer_task_pool_thread::dispatcher_exec( bauer_tcp_conn tgt){
     //TODO: Avaliar o caso que não há mais threads sobrando

@@ -1,11 +1,7 @@
 #include "bauer_task_process.hpp"
 
 namespace bauer{
-  bauer_task_process::bauer_task_process() {}
-  bauer_task_process::bauer_task_process( void (*_exec)(bauer_tcp_conn)){
-    exec = _exec;
-  }
-  bauer_task_process::~bauer_task_process() {}
+  bauer_task_process::bauer_task_process( void (*_exec)(bauer_tcp_conn)) : bauer_task_mngr(_exec){}
 
   void bauer_task_process::dispatcher_exec( bauer_tcp_conn remote){
     //TODO: fork == -1 é erro, fazer exception

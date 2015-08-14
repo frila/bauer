@@ -6,14 +6,14 @@
 #include <condition_variable>
 #include <list>
 #include "bauer_tcp_conn.hpp"
+#include "bauer_task_mngr.hpp"
 
 namespace bauer{
 
 
-  class bauer_task_pool_thread
+  class bauer_task_pool_thread : public bauer_task_mngr
   {
     private:
-      void (*exec)(bauer_tcp_conn);
       std::list<std::thread*> threads;
       std::list<bauer_tcp_conn> queue_clnt;
       std::mutex mtx;
@@ -21,7 +21,6 @@ namespace bauer{
     public:
       bauer_task_pool_thread();
       bauer_task_pool_thread( void (*_exec)(bauer_tcp_conn));
-      ~bauer_task_pool_thread();
 
       void dispatcher_exec( bauer_tcp_conn tgt);
       bauer_tcp_conn wait_client();

@@ -1,11 +1,9 @@
 #include <iostream>
-#include "bauer_tcp.hpp"
-#include "bauer_tcp_clnt.hpp"
-#include "bauer_node.hpp"
+#include "bauer.h"
 
 using namespace bauer;
 
-//g++ -std=c++11  -o bin/client programs_test/simple_chat/client.cpp -pthread -Wall -I src
+//g++ -std=c++11  -o bin/client programs_test/simple_chat/client.cpp -Iinc -pthread -Wall -I src -lbauer
 int main(int argc, char const *argv[])
 {
   bauer_node server_node(tcp_socket(), "127.0.0.1", 9999);

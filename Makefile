@@ -1,6 +1,3 @@
-#all:   g++ -std=c++11 -o bin/bauer src/main.cpp -pthread -Wall  clean:   rm
-#-rf bin/   mkdir bin
-
 NAME=bauer
 CC=g++
 
@@ -18,7 +15,7 @@ FLAGS=-std=c++11 -g -fPIC
 
 INC=-I/opt/gtest/include -Iinc -Isrc -I$(DEPINC) -L$(DEPLIB)
 
-OBJS=$(OBJ)/bauer_node.o $(OBJ)/bauer_exception.o $(OBJ)/bauer_task_pool_thread.o $(OBJ)/bauer_task_process.o $(OBJ)/bauer_task_serial.o $(OBJ)/bauer_task_thread.o $(OBJ)/bauer_tcp_conn.o $(OBJ)/bauer_tcp.o $(OBJ)/bauer_tcp_clnt.o $(OBJ)/bauer_tcp_svr.o
+OBJS=$(OBJ)/bauer_node.o $(OBJ)/bauer_tcp_conn.o $(OBJ)/bauer_exception.o $(OBJ)/bauer_task_mngr.o $(OBJ)/bauer_task_pool_thread.o $(OBJ)/bauer_task_process.o $(OBJ)/bauer_task_serial.o $(OBJ)/bauer_task_thread.o $(OBJ)/bauer_tcp.o $(OBJ)/bauer_tcp_clnt.o $(OBJ)/bauer_tcp_svr.o
 
 all: dependency $(OBJS)
 	$(CC) -o $(BIN)/lib$(NAME).so $(OBJS) $(FLAGS) -shared -pthread
@@ -27,6 +24,7 @@ dependency:
 	mkdir -p obj
 	mkdir -p bin
 
+# no debiam
 # setar  a variavel LD_LIBRARY_PATH para apontar par ao /opt/bauer/lib
 install: all
 	mkdir -p /opt/bauer
@@ -67,3 +65,6 @@ $(OBJ)/bauer_tcp_clnt.o: $(SRC)/bauer_tcp_clnt.cpp
 
 $(OBJ)/bauer_tcp_svr.o: $(SRC)/bauer_tcp_svr.cpp
 	$(CC) -o $(OBJ)/bauer_tcp_svr.o -c $(SRC)/bauer_tcp_svr.cpp $(INC) $(FLAGS)
+
+$(OBJ)/bauer_task_mngr.o: $(SRC)/bauer_task_mngr.cpp
+	$(CC) -o $(OBJ)/bauer_task_mngr.o -c $(SRC)/bauer_task_mngr.cpp $(INC) $(FLAGS)

@@ -4,17 +4,14 @@
 #include <thread>
 #include "bauer_types.hpp"
 #include "bauer_tcp_conn.hpp"
+#include "bauer_task_mngr.hpp"
 
 namespace bauer{
 
-  class bauer_task_thread
+  class bauer_task_thread : public bauer_task_mngr
   {
-    private:
-      void (*exec)(bauer_tcp_conn);
     public:
-      bauer_task_thread();
       bauer_task_thread( void (*_exec)(bauer_tcp_conn));
-      ~bauer_task_thread();
 
       void dispatcher_exec( bauer_tcp_conn remote);
   };

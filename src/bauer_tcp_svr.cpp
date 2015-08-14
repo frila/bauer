@@ -1,33 +1,21 @@
 #include "bauer_tcp_svr.hpp"
 
 namespace bauer {
-  
-  template<class Tasker>
-  bauer_tcp_svr<Tasker>::~bauer_tcp_svr() {}
-  
-  template<class Tasker>
-  bauer_tcp_svr<Tasker>::bauer_tcp_svr() {}
 
-  template<class Tasker>
-  bauer_tcp_svr<Tasker>::bauer_tcp_svr(bauer_node _local, void (*_exec)(bauer_tcp_conn)) {
-
-    if ( _local.get_socket() < 0 ) _local.set_socket(tcp_socket());
-    local = _local;
-    task_mng = new Tasker(_exec);
-
+  bauer_tcp_svr::bauer_tcp_svr(bauer_task_mngr &_task_mng, bauer_node &_local) : 
+    task_mng(_task_mng), local(_local) 
+  {
+    if ( local.get_socket() < 0 ) local.set_socket(tcp_socket());
     setup_svr();
   }
 
-  template<class Tasker>
-  void bauer_tcp_svr<Tasker>::force() {
+  void bauer_tcp_svr::force() {
     local.set_socket( tcp_socket() );
   }
 
-  template<class Tasker>
-  void bauer_tcp_svr<Tasker>::setup_svr() throw(bauer_socket_exception){
+  void bauer_tcp_svr::setup_svr() throw(bauer_socket_exception){
     sckt::sockaddr_in addr;
 
-    
     memset((void *) &addr, 0, sizeof(addr));
     addr.sin_family = sckt::_AF_INET;
     addr.sin_addr.s_addr = sckt::htonl(sckt::_INADDR_ANY); 
@@ -44,8 +32,7 @@ namespace bauer {
 
   }
 
-  template<class Tasker>
-  bauer_node bauer_tcp_svr<Tasker>::accept(){
+  bauer_node bauer_tcp_svr::accept(){
     bauer_node client_node;
     sckt::sockaddr_in cliAddr;
     unsigned int cliLen;
@@ -65,12 +52,11 @@ namespace bauer {
     return client_node;
   }
   
-  template<class Tasker>
-  void bauer_tcp_svr<Tasker>::start() {
+  void bauer_tcp_svr::start() {
     while (true) {
       bauer_node remote = accept();
       bauer_tcp_conn conn(remote);
-      task_mng->dispatcher_exec(remote);
+      task_mng.dispatcher_exec(remote);
     }
   }
 
