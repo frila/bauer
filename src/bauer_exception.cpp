@@ -37,4 +37,15 @@ namespace bauer
     message = std::string(strerror(errno));
   }
 
+  bauer_file_exception::bauer_file_exception() : bauer_exception()
+  {
+    code = errno;
+    message = std::string(strerror(errno));
+  }
+
+  bauer_file_exception::bauer_file_exception(std::string _message) : bauer_exception()
+  {
+    code = errno;
+    message = _message;
+  }
 }

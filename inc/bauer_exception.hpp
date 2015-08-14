@@ -31,6 +31,14 @@ namespace bauer
     bauer_socket_exception();
   };
 
+  class bauer_file_exception : public bauer_exception
+  {
+  protected:
+    int code;
+  public:
+    bauer_file_exception();
+    bauer_file_exception(std::string message);
+  };
 }
 
 #endif

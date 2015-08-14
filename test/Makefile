@@ -14,7 +14,7 @@ BAUERLIB=../bin
 INC=-I/opt/gtest/include -I../inc -Isrc -I$(DEPINC) -L$(DEPLIB) -L$(BAUERLIB)
 
 FLAGS=-std=c++11 -g -L/opt/gtest/lib -lgtest -lgtest_main -pthread -lbauer
-OBJS=$(OBJ)/bauer_node_test.o $(OBJ)/bauer_tcp_test.o
+OBJS=$(OBJ)/bauer_node_test.o $(OBJ)/bauer_tcp_test.o $(OBJ)/bauer_file_test.o
 
 NAME=test-all
 
@@ -34,6 +34,9 @@ $(OBJ)/bauer_node_test.o: $(SRC)/bauer_node_test.cpp
 
 $(OBJ)/bauer_tcp_test.o: $(SRC)/bauer_tcp_test.cpp
 	$(CC) -o $(OBJ)/bauer_tcp_test.o -c $(SRC)/bauer_tcp_test.cpp $(INC) $(FLAGS)
+
+$(OBJ)/bauer_file_test.o: $(SRC)/bauer_file_test.cpp
+	$(CC) -o $(OBJ)/bauer_file_test.o -c $(SRC)/bauer_file_test.cpp $(INC) $(FLAGS)
 
 clean:
 	rm -rf $(OBJ) $(BIN)/$(NAME)
