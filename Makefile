@@ -9,6 +9,7 @@ FLAGS=-Wall
 SRC=src
 OBJ=obj
 BIN=bin
+LIBPATH=/usr/local/lib
 
 DEPINC=/usr/local/include
 DEPLIB=/usr/local/lib
@@ -27,10 +28,10 @@ dependency:
 	mkdir -p bin
 
 # setar  a variavel LD_LIBRARY_PATH para apontar par ao /opt/bauer/lib
-deploy: all
+install: all
 	mkdir -p /opt/bauer
 	mkdir -p /opt/bauer/lib
-	cp $(BIN)/lib$(NAME).so /opt/bauer/lib
+	cp $(BIN)/lib$(NAME).so $(LIBPATH)
 
 clean:
 	rm -rf $(OBJ) $(BIN)/*
