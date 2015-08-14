@@ -27,9 +27,8 @@ dependency:
 # no debiam
 # setar  a variavel LD_LIBRARY_PATH para apontar par ao /opt/bauer/lib
 install: all
-	mkdir -p /opt/bauer
-	mkdir -p /opt/bauer/lib
 	cp $(BIN)/lib$(NAME).so $(LIBPATH)
+	ldconfig
 
 clean:
 	rm -rf $(OBJ) $(BIN)/*
