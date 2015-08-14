@@ -18,8 +18,12 @@ OBJS=$(OBJ)/bauer_node_test.o $(OBJ)/bauer_tcp_test.o
 
 NAME=test-all
 
-test-all: $(OBJS)
+test-all: dep $(OBJS)
 	$(CC) -o $(BIN)/$(NAME) $(OBJS) $(INC) $(FLAGS)
+
+dep:
+	mkdir -p obj
+	mkdir -p bin
 
 #### building test source
 $(OBJ)/test_main.o:
@@ -33,4 +37,3 @@ $(OBJ)/bauer_tcp_test.o: $(SRC)/bauer_tcp_test.cpp
 
 clean:
 	rm -rf $(OBJ) $(BIN)/$(NAME)
-	mkdir $(OBJ) 
