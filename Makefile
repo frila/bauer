@@ -15,7 +15,7 @@ FLAGS=-std=c++11 -g -fPIC
 
 INC=-I/opt/gtest/include -Iinc -Isrc -I$(DEPINC) -L$(DEPLIB)
 
-OBJS=$(OBJ)/bauer_node.o $(OBJ)/bauer_exception.o $(OBJ)/bauer_task_pool_thread.o $(OBJ)/bauer_task_process.o $(OBJ)/bauer_task_serial.o $(OBJ)/bauer_task_thread.o $(OBJ)/bauer_tcp_conn.o $(OBJ)/bauer_tcp.o $(OBJ)/bauer_tcp_clnt.o $(OBJ)/bauer_tcp_svr.o $(OBJ)/bauer_file.o $(OBJ)/bauer_task_mngr.o
+OBJS=$(OBJ)/bauer_node.o $(OBJ)/bauer_exception.o $(OBJ)/bauer_task_pool_thread.o $(OBJ)/bauer_task_process.o $(OBJ)/bauer_task_serial.o $(OBJ)/bauer_task_thread.o $(OBJ)/bauer_tcp.o $(OBJ)/bauer_tcp_clnt.o $(OBJ)/bauer_tcp_svr.o $(OBJ)/bauer_file.o $(OBJ)/bauer_task_mngr.o $(OBJ)/bauer_tcp_channel.o $(OBJ)/bauer_tcp_data.o $(OBJ)/bauer_tcp_data_string.o
 
 all: dependency $(OBJS)
 	$(CC) -o $(BIN)/lib$(NAME).so $(OBJS) $(FLAGS) -shared -pthread
@@ -68,3 +68,12 @@ $(OBJ)/bauer_task_mngr.o: $(SRC)/bauer_task_mngr.cpp
 
 $(OBJ)/bauer_file.o: $(SRC)/bauer_file.cpp
 	$(CC) -o $(OBJ)/bauer_file.o -c $(SRC)/bauer_file.cpp $(INC) $(FLAGS)
+
+$(OBJ)/bauer_tcp_channel.o: $(SRC)/bauer_tcp_channel.cpp
+	$(CC) -o $(OBJ)/bauer_tcp_channel.o -c $(SRC)/bauer_tcp_channel.cpp $(INC) $(FLAGS)
+
+$(OBJ)/bauer_tcp_data.o: $(SRC)/bauer_tcp_data.cpp
+	$(CC) -o $(OBJ)/bauer_tcp_data.o -c $(SRC)/bauer_tcp_data.cpp $(INC) $(FLAGS)
+
+$(OBJ)/bauer_tcp_data_string.o: $(SRC)/bauer_tcp_data_string.cpp
+	$(CC) -o $(OBJ)/bauer_tcp_data_string.o -c $(SRC)/bauer_tcp_data_string.cpp $(INC) $(FLAGS)

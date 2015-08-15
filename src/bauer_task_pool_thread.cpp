@@ -6,19 +6,19 @@ namespace bauer{
     setup_threads(8);
   }
 
-  bauer_task_pool_thread::bauer_task_pool_thread( void (*_exec)(bauer_tcp_conn)) : bauer_task_mngr(_exec){
+  bauer_task_pool_thread::bauer_task_pool_thread( void (*_exec)(bauer_tcp_channel)) : bauer_task_mngr(_exec){
     setup_threads(8);
   }
 
-  void bauer_task_pool_thread::dispatcher_exec( bauer_tcp_conn tgt){
+  void bauer_task_pool_thread::dispatcher_exec( bauer_tcp_channel tgt){
     //TODO: Avaliar o caso que não há mais threads sobrando
     std::unique_lock<std::mutex> lck(mtx);
     queue_clnt.push_back(tgt);
     queue_cond_var.notify_one();
   }
 
-  bauer_tcp_conn bauer_task_pool_thread::wait_client(){
-    bauer_tcp_conn tgt;
+  bauer_tcp_channel bauer_task_pool_thread::wait_client(){
+    bauer_tcp_channel tgt;
     std::unique_lock<std::mutex> lck(mtx);
     queue_cond_var.wait(lck);
     if(queue_clnt.size() > 0){
@@ -30,7 +30,7 @@ namespace bauer{
 
   void bauer_task_pool_thread::function_thread_execute(){
     while(true){
-      bauer_tcp_conn tgt = wait_client();
+      bauer_tcp_channel tgt = wait_client();
       exec(tgt);
     }
   }

@@ -3,7 +3,7 @@
 
 #include <thread>
 #include "bauer_types.hpp"
-#include "bauer_tcp_conn.hpp"
+#include "bauer_tcp_channel.hpp"
 #include "bauer_task_mngr.hpp"
 
 namespace bauer{
@@ -11,9 +11,9 @@ namespace bauer{
   class bauer_task_thread : public bauer_task_mngr
   {
     public:
-      bauer_task_thread( void (*_exec)(bauer_tcp_conn));
+      bauer_task_thread( void (*_exec)(bauer_tcp_channel));
 
-      void dispatcher_exec( bauer_tcp_conn remote);
+      void dispatcher_exec( bauer_tcp_channel remote);
   };
 }
 

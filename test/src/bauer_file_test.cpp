@@ -9,7 +9,7 @@ class bauer_file_test : public ::testing::Test {
   virtual void SetUp() {}
   virtual void TearDown() {}
 };
-
+/*
 TEST_F(bauer_file_test, deveria_setar_o_size_corretamente) {
   bauer_file file("../files/valid_path.txt");
   
@@ -43,4 +43,4 @@ TEST_F(bauer_file_test, quando_o_tamanho_do_chunk_nao_for_passado_deveria_setar_
 TEST_F(bauer_file_test, ao_passar_o_chunk_como_argumento_deveria_setar_o_tamanho_do_chunk) {
   bauer_file file("../files/valid_path.txt", 2048);
   EXPECT_EQ(file.get_chunk_size(), 2048);
-}
+}*/

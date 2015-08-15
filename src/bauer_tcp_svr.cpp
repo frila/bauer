@@ -54,9 +54,12 @@ namespace bauer {
   
   void bauer_tcp_svr::start() {
     while (true) {
+      printar("esperando cliente");
       bauer_node remote = accept();
-      bauer_tcp_conn conn(remote);
-      task_mng.dispatcher_exec(remote);
+      printar("cliente aceito");
+      bauer_tcp_channel channel(remote);
+      printar("canal criado");
+      task_mng.dispatcher_exec(channel);
     }
   }
 
