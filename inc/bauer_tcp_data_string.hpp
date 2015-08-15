@@ -17,8 +17,8 @@ protected:
 
 public:
   bauer_tcp_data_string();
-  bauer_tcp_data_string(std::string _data);
   bauer_tcp_data_string(char* _data);
+  bauer_tcp_data_string(std::string _data);
   ~bauer_tcp_data_string();
   std::string& get();
 

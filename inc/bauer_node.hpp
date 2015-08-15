@@ -1,10 +1,6 @@
 #ifndef BAUER_NODE_HPP
 #define BAUER_NODE_HPP
 
-#ifndef printar
-#define printar(m) std::cout<<m<<std::endl;
-#endif
-
 #include <iostream>
 #include "bauer_types.hpp"
 
