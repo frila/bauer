@@ -13,7 +13,8 @@ class bauer_tcp_data
 protected:
   const int size_buffer;
 
-  size_t send(char data[], int nbytes, bauer_node remote) throw(bauer_socket_exception);
+  size_t send(char data[], bauer_node remote) throw(bauer_socket_exception);
+  size_t send(char data[], bauer_node remote, size_t size) throw(bauer_socket_exception);
   size_t recv(char* &data, bauer_node remote) throw(bauer_socket_exception);
 
   virtual size_t send(bauer_node remote) = 0;

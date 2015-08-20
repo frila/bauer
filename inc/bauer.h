@@ -13,6 +13,8 @@
 #include "bauer_tcp_svr.hpp"
 #include "bauer_tcp_data.hpp"
 #include "bauer_tcp_data_string.hpp"
+#include "bauer_tcp_data_file.hpp"
+#include "bauer_tcp_data_int.hpp"
 
 
 #endif

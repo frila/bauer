@@ -14,7 +14,7 @@ namespace bauer {
     std::string path;
     bfile_size size;
     bfile_chunks chunks;
-    short chunk_size;
+
   public:
     bauer_file(std::string path, short chunk_size = 1024);
     ~bauer_file();

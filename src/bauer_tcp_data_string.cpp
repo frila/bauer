@@ -28,7 +28,7 @@ std::string& bauer_tcp_data_string::get()
 size_t bauer_tcp_data_string::send(bauer_node remote)
 {
   char *d = const_cast<char *>(data.c_str());
-  return bauer_tcp_data::send(d,100,remote);
+  return bauer_tcp_data::send(d,remote);
 }
 
 size_t bauer_tcp_data_string::recv(bauer_node remote)
