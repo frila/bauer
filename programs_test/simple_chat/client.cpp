@@ -11,7 +11,7 @@ int main(int argc, char const *argv[])
 
   client.connect(server_node);
   std::cout << "Client - Connectado no Server" << std::endl;
-  bauer_tcp_data_file data("teste.jpg");
+  bauer_tcp_data_file data(argv[1]);
   client.recv(data);
   
   return 0;

@@ -2,8 +2,8 @@
 
 namespace bauer {
 
-bauer_tcp_data_file::bauer_tcp_data_file(std::string _path)
-  : bauer_tcp_data(), path(_path)
+bauer_tcp_data_file::bauer_tcp_data_file(std::string _path, bauer_file_mode _mode)
+  : bauer_tcp_data(), path(_path), mode(_mode)
 {
   bfs = new char[size_buffer];
 }
@@ -12,38 +12,50 @@ bauer_tcp_data_file::~bauer_tcp_data_file()
 {
 }
 
-//http://www.cplusplus.com/doc/tutorial/files/
-size_t bauer_tcp_data_file::send(bauer_node remote)
+void bauer_tcp_data_file::open_file_input()
 {
   fs.open (path.c_str(), std::fstream::in | std::fstream::binary | std::fstream::ate);
+}
+
+void bauer_tcp_data_file::send_size(bauer_node remote, size_t size)
+{
+  bauer_tcp_data_int size_data = (int)size;
+  size_data.send(remote);
+}
+
+size_t bauer_tcp_data_file::send(bauer_node remote)
+{
+  size_t initial_byte = recv_start_chunck(remote);
+  open_file_input();
   size_t r = 0;
   if(fs.is_open())
   {
     size = fs.tellg();
-    bauer_tcp_data_int size_data = (int)size;
-    size_data.send(remote);
-    std::cout << size << std::endl;
-    fs.seekg(0, std::fstream::beg);
-    do
+    send_size(remote,size);
+
+    if (initial_byte != size)
     {
-      size_t request_size = 0;
-      if (size > size_buffer)
+      fs.seekg(initial_byte);
+      do
       {
-        request_size = size_buffer;
-        size -= size_buffer;
+        size_t request_size = 0;
+        if (size > size_buffer)
+        {
+          request_size = size_buffer;
+          size -= size_buffer;
+        }
+        else
+        {
+          request_size = size;
+          size = 0;
+        }
+        std::memset(bfs, 0, sizeof(char) * request_size);
+        fs.read(bfs, request_size);
+        r += bauer_tcp_data::send(bfs, remote,request_size);
       }
-      else
-      {
-        request_size = size;
-        size = 0;
-      }
-      std::memset(bfs, 0, sizeof(char) * request_size);
-      fs.read(bfs, request_size);
-      r += bauer_tcp_data::send(bfs, remote,request_size);
+      while(size);
+      r += bauer_tcp_data::send(bfs, remote,0);
     }
-    while(size);
-    std::cout << "terminou " << std::endl;
-    r += bauer_tcp_data::send(bfs, remote,0);
   } 
   else 
   {
@@ -52,32 +64,80 @@ size_t bauer_tcp_data_file::send(bauer_node remote)
   fs.close();
 }
 
+size_t bauer_tcp_data_file::recv_size(bauer_node remote)
+{
+  bauer_tcp_data_int size_data;
+  size_data.recv(remote);
+  return size_data.get();
+}
+
+size_t bauer_tcp_data_file::get_size_file()
+{
+  int size = 0;
+  std::fstream fsi;
+  fsi.open (path.c_str(), std::fstream::app | std::fstream::binary);
+  size = fsi.tellg();
+  fsi.close();
+  return size;
+}
+
+size_t bauer_tcp_data_file::send_start_chunck(bauer_node remote)
+{
+  bauer_tcp_data_int size;
+  if (mode == bauer_file_mode::CHUCK_CONTINUOS)
+  {
+    size = (int) get_size_file();
+  }
+  else if (mode == bauer_file_mode::CHUCK_RESTART)
+  {
+    size = 0;
+  }
+  size.send(remote);
+  return size.get();
+}
+
+size_t bauer_tcp_data_file::recv_start_chunck(bauer_node remote)
+{
+  bauer_tcp_data_int size;
+  size.recv(remote);
+  return size.get();
+}
+
 size_t bauer_tcp_data_file::recv(bauer_node remote)
 {
-  size_t r = 0;
-  fs.open (path.c_str(), std::fstream::out | std::fstream::binary);
-  if (fs.is_open())
+  size_t initial_size = send_start_chunck(remote);
+  size_t r = initial_size,
+    s = 0,
+    size = recv_size(remote);
+
+  if ( initial_size < size)
   {
-    bauer_tcp_data_int size_data;
-    size_t s = 0, size;
-    size_data.recv(remote);
-    size = size_data.get();
-    std::cout << size << std::endl;
-    do
+    if (initial_size > 0 )
     {
-      std::memset(bfs, 0, sizeof(char) * size_buffer);
-      s = bauer_tcp_data::recv(bfs, remote);
-      fs.write(bfs, s);
-      r += s;
-      std::cout << r << std::endl;
+      fs.open(path.c_str(), std::ofstream::out | std::fstream::app | std::fstream::binary);
     }
-    while(r < size);
-    std::cout << "terminou " << std::endl;
-    fs.close();
-  }
-  else
-  {
-    throw bauer_exception("Open file Error");
+    else
+    {
+      fs.open (path.c_str(), std::fstream::out | std::fstream::binary);
+    }
+    if (fs.is_open())
+    {
+      int t_size = fs.tellg();
+      fs.seekg(0, std::fstream::beg);
+      do
+      {
+        std::memset(bfs, 0, sizeof(char) * size_buffer);
+        s = bauer_tcp_data::recv(bfs, remote);
+        fs.write(bfs, s);
+        r += s;
+      }
+      while(r < size);
+      fs.close();
+    }
+    else
+    {
+      throw bauer_exception("Open file Error");
+    }
   }
 }
 
