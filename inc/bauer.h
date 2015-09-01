@@ -15,6 +15,7 @@
 #include "bauer_tcp_data_string.hpp"
 #include "bauer_tcp_data_file.hpp"
 #include "bauer_tcp_data_int.hpp"
+#include "bauer_tcp_data_bool.hpp"
 
 
 #endif

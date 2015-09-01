@@ -11,8 +11,11 @@ int main(int argc, char const *argv[])
 
   client.connect(server_node);
   std::cout << "Client - Connectado no Server" << std::endl;
-  bauer_tcp_data_file data(argv[1]);
-  client.recv(data);
+  //bauer_tcp_data_file data(argv[1]);
+  bauer_tcp_data_bool data;
+  
+  std::cout << client.recv(data) << std::endl;
+  std::cout << (data.get() ? "Verdade" : "Falso") << std::endl;
   
   return 0;
 }
