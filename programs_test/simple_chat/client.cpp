@@ -8,10 +8,11 @@ int main(int argc, char const *argv[])
 {
   bauer_node server_node(tcp_socket(), "127.0.0.1", 9999);
   bauer_tcp_clnt client;
-
+  int a;
   client.connect(server_node);
   std::cout << "Client - Connectado no Server" << std::endl;
   //bauer_tcp_data_file data(argv[1]);
+  std::cin >> a;
   bauer_tcp_data_bool data;
   
   std::cout << client.recv(data) << std::endl;
