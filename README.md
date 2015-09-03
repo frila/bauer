@@ -217,7 +217,7 @@ bauer_tcp_data_file(std::string _path, bauer_file_mode _mode=bauer_file_mode::CH
  > **std::string _path**: Caminho do arquivo
  > **bauer_file_mode _mode**: Modo o qual será aberto o arquivo
  > > bauer_file_mode::CHUCK_CONTINUOS (*default*)
- > > bauer_file_mode::CHUCK_RESTART
+   > bauer_file_mode::CHUCK_RESTART
 
 ```c
 bauer_tcp_data_bool();
