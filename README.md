@@ -1,7 +1,14 @@
 [![Build Status](http://104.236.110.35:8081/api/badge/github.com/frila/bauer/status.svg?branch=master)](http://104.236.110.35:8081/github.com/frila/bauer)
 
 #Bauer
-
+##Guia
+* [Documentação](#documentação)
+  * [bauer_node](#bauer_node)
+  * [bauer_tcp_clnt](#bauer_tcp_clnt)
+  * [bauer_tcp_svr](#bauer_tcp_svr)
+  * [bauer_task](#bauer_task)
+  * [bauer_tcp_channel](#bauer_tcp_channel)
+  * [bauer_data](#bauer_data)
 -------------------------------------------------------------
 ##Documentação
 Para utilizar o bauer deve-se incluir o arquivo 
