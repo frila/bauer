@@ -22,9 +22,9 @@ bauer_node(bauer_ip _ip, bauer_port _port)
 ```
 
 #####Parametro
- > **bsocket_t socket**: instancia de socket
- > **bauer_ip ip**: Ip do nó de destino
- > **bauer_port port**: Porta do nó de destino
+ > - **bsocket_t socket**: instancia de socket
+ > - **bauer_ip ip**: Ip do nó de destino
+ > - **bauer_port port**: Porta do nó de destino
 
 
 #####Exemplo
@@ -102,8 +102,8 @@ bauer_tcp_svr(bauer_task_mngr &task_mng,bauer_node &_local);
 ```
 
 #####Parametro
- > **bauer_task_mngr &task_mng**: Instacia um gerenciador de tarefas do servidor
- > **bauer_node &_local**: Define o ip,porta e socket aonde serão instaciado o servidor 
+ > - **bauer_task_mngr &task_mng**: Instacia um gerenciador de tarefas do servidor
+ > - **bauer_node &_local**: Define o ip,porta e socket aonde serão instaciado o servidor 
  
 **Operações**
 ```c
@@ -126,10 +126,10 @@ server.start();
 ####bauer_task
 São gerenciadores de servidor.
 Os Servidores pode ser:
-> Servidor Serial - *bauer_task_serial*
-> Servidor com Threads - *bauer_task_thread*
-> Servidor com Processos - *bauer_task_process*
-> Servidor com Pool de Threads - *bauer_task_pool_thread*
+> - Servidor Serial - *bauer_task_serial*
+> - Servidor com Threads - *bauer_task_thread*
+> - Servidor com Processos - *bauer_task_process*
+> - Servidor com Pool de Threads - *bauer_task_pool_thread*
 
 **Construtores**:
 
@@ -142,7 +142,7 @@ bauer_task_pool_thread( void (*_exec)(bauer_tcp_channel));
 ```
 
 #####Parametro
- > **void (*_exec)(bauer_tcp_channel)**: Função que executará quando o servidor parear uma conexão com o cliente
+ > - **void (*_exec)(bauer_tcp_channel)**: Função que executará quando o servidor parear uma conexão com o cliente
  
 
 #####Exemplo
@@ -193,10 +193,10 @@ void exec(bauer_tcp_channel channel){
 -------------------------------------------------------------
 ####bauer_data
 Os tipos de dados que podem ser enviados/recebidos
-> Dados int - *bauer_tcp_data_int*
-> Dados bool - *bauer_tcp_data_bool*
-> Dados string - *bauer_tcp_data_string*
-> Dados file - *bauer_tcp_data_file*
+> - Dados int - *bauer_tcp_data_int*
+> - Dados bool - *bauer_tcp_data_bool*
+> - Dados string - *bauer_tcp_data_string*
+> - Dados file - *bauer_tcp_data_file*
 
 
 **Construtores**:
@@ -214,10 +214,10 @@ bauer_tcp_data_int(int _data);
 bauer_tcp_data_file(std::string _path, bauer_file_mode _mode=bauer_file_mode::CHUCK_CONTINUOS);
 ```
 #####Parametro
- > **std::string _path**: Caminho do arquivo
- > **bauer_file_mode _mode**: Modo o qual será aberto o arquivo
- > - - bauer_file_mode::CHUCK_CONTINUOS (*default*)
- > - - bauer_file_mode::CHUCK_RESTART
+ > - **std::string _path**: Caminho do arquivo
+ > - **bauer_file_mode _mode**: Modo o qual será aberto o arquivo
+ > - bauer_file_mode::CHUCK_CONTINUOS (*default*)
+ > - bauer_file_mode::CHUCK_RESTART
 
 ```c
 bauer_tcp_data_bool();
@@ -228,10 +228,10 @@ bauer_tcp_data_bool(bool _data);
 TYPE get();
 ```
 Retorna:
-> TYPE=**int** : bauer_tcp_data_int
-> TYPE=**bool** : bauer_tcp_data_bool
-> TYPE=**string** : bauer_tcp_data_string
-> TYPE=**ofstream** : bauer_tcp_data_file
+> - TYPE=**int** : bauer_tcp_data_int
+> - TYPE=**bool** : bauer_tcp_data_bool
+> - TYPE=**string** : bauer_tcp_data_string
+> - TYPE=**ofstream** : bauer_tcp_data_file
 
 #####Exemplo
 ```c
