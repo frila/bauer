@@ -7,7 +7,7 @@
 Para utilizar o bauer deve-se incluir o arquivo 
 
 ```c
-#include "bauer.hpp"
+#include "bauer.h"
 ```
 -------------------------------------------------------------
 ####bauer_node
