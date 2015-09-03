@@ -9,6 +9,11 @@
   * [bauer_task](#bauer_task)
   * [bauer_tcp_channel](#bauer_tcp_channel)
   * [bauer_data](#bauer_data)
+    * [bauer_tcp_data_int](#bauer_tcp_data_int)
+    * [bauer_tcp_data_bool](#bauer_tcp_data_bool)
+    * [bauer_tcp_data_string](#bauer_tcp_data_string)
+    * [bauer_tcp_data_file](#bauer_tcp_data_file)
+
 
 -------------------------------------------------------------
 ##Documentação
@@ -209,15 +214,18 @@ Os tipos de dados que podem ser enviados/recebidos
 
 **Construtores**:
 
+######bauer_tcp_data_string
 ```c
 bauer_tcp_data_string();
 bauer_tcp_data_string(char* _data);
 bauer_tcp_data_string(std::string _data);
 ```
+######bauer_tcp_data_int
 ```c
 bauer_tcp_data_int();
 bauer_tcp_data_int(int _data);
 ```
+######bauer_tcp_data_file
 ```c
 bauer_tcp_data_file(std::string _path, bauer_file_mode _mode=bauer_file_mode::CHUCK_CONTINUOS);
 ```
@@ -227,6 +235,7 @@ bauer_tcp_data_file(std::string _path, bauer_file_mode _mode=bauer_file_mode::CH
  >  - bauer_file_mode::CHUCK_CONTINUOS (*default*)
  >  - bauer_file_mode::CHUCK_RESTART
 
+######bauer_tcp_data_bool
 ```c
 bauer_tcp_data_bool();
 bauer_tcp_data_bool(bool _data);
