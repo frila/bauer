@@ -162,6 +162,35 @@ int main(int argc, char const *argv[])
 }
 ```
 -------------------------------------------------------------
+####bauer_tcp_channel
+Classe que permite um servidor enviar dados para o cliente conectado.
+
+**Construtores**:
+```c
+// Não há construtor disponivel
+```
+
+**Operações**
+
+```c
+size_t send(bauer_tcp_data &data);
+```
+Envia um dado para o cliente conetado
+```c
+size_t recv(bauer_tcp_data &data);
+```
+Recebe um dado do cliente conectado
+#####Exemplo
+```c
+// Função enviada para o Tasker
+void exec(bauer_tcp_channel channel){
+  bauer_tcp_data_string data = "Hello World";
+  channel.send(data)
+  channel.recv(data);
+  cout << data.get() << endl; // Imprime o dado recebido do cliente
+}
+```
+-------------------------------------------------------------
 ####bauer_data
 Os tipos de dados que podem ser enviados/recebidos
 > Dados int - *bauer_tcp_data_int*
