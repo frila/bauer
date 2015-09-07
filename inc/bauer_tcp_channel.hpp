@@ -16,6 +16,7 @@ class bauer_tcp_channel
 private:
   bauer_node tgt;
 public:
+  void *data;
   bauer_tcp_channel();
   bauer_tcp_channel(bauer_node _tgt);
   ~bauer_tcp_channel();
@@ -23,7 +24,6 @@ public:
   size_t recv(bauer_tcp_data &data) throw(bauer_socket_exception);
   void set_target(bauer_node _tgt);
   bauer_node& get_target();
-
 };
 
 } // bauer

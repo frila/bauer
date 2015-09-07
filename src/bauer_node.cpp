@@ -1,4 +1,5 @@
 #include "bauer_node.hpp"
+#include <cstring>
 
 namespace bauer {
 

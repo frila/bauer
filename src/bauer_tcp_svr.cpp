@@ -9,8 +9,9 @@ namespace bauer {
     setup_svr();
   }
 
-  void bauer_tcp_svr::force() {
+  bauer_tcp_svr& bauer_tcp_svr::force() {
     local.set_socket( tcp_socket() );
+    return *this;
   }
 
   void bauer_tcp_svr::setup_svr() throw(bauer_socket_exception){
@@ -56,8 +57,14 @@ namespace bauer {
     while (true) {
       bauer_node remote = accept();
       bauer_tcp_channel channel(remote);
+      channel.data = data;
       task_mng.dispatcher_exec(channel);
     }
+  }
+
+  void bauer_tcp_svr::set_data(void *_data)
+  {
+    data = _data;
   }
 
 }

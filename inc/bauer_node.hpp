@@ -12,6 +12,7 @@ namespace bauer {
     //TODO: transformar bauer_ip em classe, atualmente é string declarada em bauer_types.hpp
     bauer_ip ip;
     bauer_port port;
+  
   public:
     bauer_node();
     bauer_node(bsocket_t _socket, bauer_ip _ip, bauer_port _port);
