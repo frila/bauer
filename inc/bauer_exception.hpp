@@ -31,6 +31,12 @@ namespace bauer
     bauer_socket_exception();
   };
 
+  class bauer_socket_connect_timeout_exception : public bauer_socket_exception
+  {
+  public:
+    bauer_socket_connect_timeout_exception();
+  };  
+
   class bauer_file_exception : public bauer_exception
   {
   protected:

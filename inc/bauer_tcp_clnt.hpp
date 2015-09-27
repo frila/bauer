@@ -17,7 +17,7 @@ class bauer_tcp_clnt
     bauer_tcp_clnt();
     ~bauer_tcp_clnt();
 
-    void connect(bauer_node &node) throw(bauer_socket_exception);
+    void connect(bauer_node &node, int timeout_seconds=5) throw(bauer_socket_exception);
     size_t send(bauer_tcp_data &data);
     size_t recv(bauer_tcp_data &data);
     
