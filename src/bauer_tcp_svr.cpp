@@ -2,7 +2,7 @@
 
 namespace bauer {
 
-  bauer_tcp_svr::bauer_tcp_svr(bauer_task_mngr &_task_mng, bauer_node &_local, unsigned int maxpending = 3) : 
+  bauer_tcp_svr::bauer_tcp_svr(bauer_task_mngr &_task_mng, bauer_node &_local, unsigned int maxpending) : 
     task_mng(_task_mng), local(_local) 
   {
     if ( local.get_socket() < 0 ) local.set_socket(tcp_socket());
