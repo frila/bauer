@@ -18,7 +18,7 @@ bauer_node string2bauer_node(std::string str)
 	int ip_mask_length = 15;// 000.000.000.000
     char *str_ip = new char[ip_mask_length];
     short port;
-    std::sscanf(str.data(),"%s:%d",str_ip,port);
+    std::sscanf(str.data(),"%s:%d",str_ip,&port);
     return bauer_node(std::string(str_ip), port);
 }
 
