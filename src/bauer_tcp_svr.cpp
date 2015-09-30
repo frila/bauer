@@ -6,7 +6,7 @@ namespace bauer {
     task_mng(_task_mng), local(_local) 
   {
     if ( local.get_socket() < 0 ) local.set_socket(tcp_socket());
-    setup_svr();
+    setup_svr(maxpending);
   }
 
   bauer_tcp_svr& bauer_tcp_svr::force() {
@@ -14,7 +14,7 @@ namespace bauer {
     return *this;
   }
 
-  void bauer_tcp_svr::setup_svr() throw(bauer_socket_exception){
+  void bauer_tcp_svr::setup_svr(unsigned int maxpending) throw(bauer_socket_exception){
     sckt::sockaddr_in addr;
 
     memset((void *) &addr, 0, sizeof(addr));
