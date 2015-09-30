@@ -1,6 +1,7 @@
 #ifndef BAUER_H
 #define BAUER_H
 
+#include "bauer/bauer_types.hpp"
 #include "bauer/bauer_exception.hpp"
 #include "bauer/bauer_node.hpp"
 #include "bauer/bauer_tcp_channel.hpp"

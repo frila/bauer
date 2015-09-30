@@ -17,7 +17,7 @@ namespace bauer {
     bauer_task_mngr &task_mng;
     void *data;
   public:
-    bauer_tcp_svr(bauer_task_mngr &task_mng,bauer_node &_local);
+    bauer_tcp_svr(bauer_task_mngr &task_mng,bauer_node &_local,unsigned int maxpending);
 
     bauer_tcp_svr& force();
     void setup_svr() throw(bauer_socket_exception);

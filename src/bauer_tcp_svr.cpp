@@ -2,7 +2,7 @@
 
 namespace bauer {
 
-  bauer_tcp_svr::bauer_tcp_svr(bauer_task_mngr &_task_mng, bauer_node &_local) : 
+  bauer_tcp_svr::bauer_tcp_svr(bauer_task_mngr &_task_mng, bauer_node &_local, unsigned int maxpending = 3) : 
     task_mng(_task_mng), local(_local) 
   {
     if ( local.get_socket() < 0 ) local.set_socket(tcp_socket());
@@ -27,18 +27,18 @@ namespace bauer {
     }
 
     // TODO VER MAXPENDING no codigo da Silvana
-    if (sckt::listen(local.get_socket(), 3) < 0){
+    if (sckt::listen(local.get_socket(), maxpending) < 0){
       throw bauer_socket_exception();
     }
-
   }
 
   bauer_node bauer_tcp_svr::accept(){
     bauer_node client_node;
     sckt::sockaddr_in cliAddr;
-    unsigned int cliLen;
+    sckt::socklen_t cliLen;
 
     cliLen = sizeof(cliAddr);
+    memset(&cliAddr, 0, (size_t) sizeof(cliAddr));
 
     bsocket_t accept_d = sckt::accept(local.get_socket(), (sckt::sockaddr*) &cliAddr, &cliLen);
 
