@@ -27,6 +27,9 @@ private:
   size_t get_size_file();
   size_t send_start_chunck(bauer_node remote);
   size_t recv_start_chunck(bauer_node remote);
+
+  void (*recv_iter_function)(size_t,size_t);
+  void (*send_iter_function)(size_t,size_t);
 protected:
   size_t send(bauer_node remote);
   size_t recv(bauer_node remote);
@@ -35,6 +38,9 @@ public:
   
   bauer_tcp_data_file(std::string _path, bauer_file_mode _mode=bauer_file_mode::CHUCK_CONTINUOS);
   ~bauer_tcp_data_file();
+
+  void set_recv_iter_function(void (*_recv_iter_function)(size_t,size_t));
+  void set_send_iter_function(void (*_send_iter_function)(size_t,size_t));
 };
 
   

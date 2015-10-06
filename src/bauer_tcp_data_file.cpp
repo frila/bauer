@@ -6,6 +6,8 @@ bauer_tcp_data_file::bauer_tcp_data_file(std::string _path, bauer_file_mode _mod
   : bauer_tcp_data(), path(_path), mode(_mode)
 {
   bfs = new char[size_buffer];
+  recv_iter_function = NULL;
+  send_iter_function = NULL;
 }
 
 bauer_tcp_data_file::~bauer_tcp_data_file()
@@ -52,9 +54,17 @@ size_t bauer_tcp_data_file::send(bauer_node remote)
         std::memset(bfs, 0, sizeof(char) * request_size);
         fs.read(bfs, request_size);
         r += bauer_tcp_data::send(bfs, remote,request_size);
+
+        if(send_iter_function) {
+          send_iter_function(r,size);
+        }
+
       }
       while(size);
       r += bauer_tcp_data::send(bfs, remote,0);
+      if(send_iter_function) {
+        send_iter_function(r,size);
+      }
     }
   } 
   else 
@@ -129,7 +139,12 @@ size_t bauer_tcp_data_file::recv(bauer_node remote)
         std::memset(bfs, 0, sizeof(char) * size_buffer);
         s = bauer_tcp_data::recv(bfs, remote);
         fs.write(bfs, s);
+
         r += s;
+
+        if (recv_iter_function) {
+          recv_iter_function(r,size);
+        }
       }
       while(r < size);
       fs.close();
@@ -140,6 +155,15 @@ size_t bauer_tcp_data_file::recv(bauer_node remote)
     }
   }
 }
+
+void bauer_tcp_data_file::set_recv_iter_function(void (*_recv_iter_function)(size_t,size_t)) {
+  recv_iter_function = _recv_iter_function;
+}
+
+void bauer_tcp_data_file::set_send_iter_function(void (*_send_iter_function)(size_t,size_t)) {
+  send_iter_function = _send_iter_function;
+}
+
 
 
 } // bauer
