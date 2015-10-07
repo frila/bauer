@@ -5,6 +5,8 @@ namespace bauer {
   bauer_tcp_svr::bauer_tcp_svr(bauer_task_mngr &_task_mng, bauer_node &_local, unsigned int maxpending) : 
     task_mng(_task_mng), local(_local) 
   {
+    pause_flag = false;
+    unique_cicle_flag = false;
     if ( local.get_socket() < 0 ) local.set_socket(tcp_socket());
     setup_svr(maxpending);
   }
@@ -12,6 +14,10 @@ namespace bauer {
   bauer_tcp_svr& bauer_tcp_svr::force() {
     local.set_socket( tcp_socket() );
     return *this;
+  }
+
+  void bauer_tcp_svr::pause() {
+    pause_flag = true;
   }
 
   void bauer_tcp_svr::setup_svr(unsigned int maxpending) throw(bauer_socket_exception){
@@ -26,7 +32,6 @@ namespace bauer {
       throw bauer_socket_exception();
     }
 
-    // TODO VER MAXPENDING no codigo da Silvana
     if (sckt::listen(local.get_socket(), maxpending) < 0){
       throw bauer_socket_exception();
     }
@@ -54,12 +59,27 @@ namespace bauer {
   }
   
   void bauer_tcp_svr::start() {
-    while (true) {
+    while (!pause_flag) {
       bauer_node remote = accept();
       bauer_tcp_channel channel(remote);
       channel.data = data;
       task_mng.dispatcher_exec(channel);
+
+      if(unique_cicle){
+        unique_cicle = false;
+        break;
+      }
+
     }
+    pause_flag = false;
+  }
+
+  void bauer_tcp_svr::unique_cicle() {
+    unique_cicle_flag = true;
+  }
+
+  void bauer_tcp_svr::multi_cicle() {
+    unique_cicle_flag = false;
   }
 
   void bauer_tcp_svr::set_data(void *_data)

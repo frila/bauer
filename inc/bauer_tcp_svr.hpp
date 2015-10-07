@@ -16,6 +16,8 @@ namespace bauer {
     bauer_node &local;
     bauer_task_mngr &task_mng;
     void *data;
+    bool pause_flag;
+    bool unique_cicle_flag;
   public:
     bauer_tcp_svr(bauer_task_mngr &task_mng,bauer_node &_local,unsigned int maxpending= 3);
 
@@ -23,6 +25,9 @@ namespace bauer {
     void setup_svr(unsigned int maxpending) throw(bauer_socket_exception);
     bauer_node accept();
     void start();
+    void pause();
+    void unique_cicle();
+    void multi_cicle();
     void set_data(void *_data);
   };
 }
