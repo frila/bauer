@@ -66,5 +66,4 @@ namespace bauer {
   {
     data = _data;
   }
-
 }

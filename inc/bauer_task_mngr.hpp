@@ -12,8 +12,9 @@ protected:
   void (*exec)(bauer_tcp_channel);
 public:
   ~bauer_task_mngr();
-  bauer_task_mngr( void (*_exec)(bauer_tcp_channel));
+  bauer_task_mngr(void (*_exec)(bauer_tcp_channel));
   bauer_task_mngr();
+  void set_function(void (*_exec)(bauer_tcp_channel));
   virtual void dispatcher_exec( bauer_tcp_channel remote) = 0;
 };
 

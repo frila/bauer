@@ -14,6 +14,9 @@ namespace bauer {
   {
   }
 
+  void bauer_task_mngr::set_function(void (*_exec)(bauer_tcp_channel)) {
+  	exec = _exec;
+  }
 
 } // bauer
 
