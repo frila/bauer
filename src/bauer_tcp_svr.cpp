@@ -65,8 +65,8 @@ namespace bauer {
       channel.data = data;
       task_mng.dispatcher_exec(channel);
 
-      if(unique_cicle){
-        unique_cicle = false;
+      if(unique_cicle_flag){
+        unique_cicle_flag = false;
         break;
       }
 
